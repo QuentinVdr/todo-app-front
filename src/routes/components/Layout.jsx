@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import Navbar from '@components/global/Navbar/Navbar';
 import { Outlet } from 'react-router-dom';
 import styles from './Layout.module.scss';
 
@@ -8,11 +8,12 @@ import styles from './Layout.module.scss';
  */
 function Layout() {
   return (
-    <Stack direction="row">
+    <>
+      <Navbar />
       <main className={styles.pageContainer}>
         <Outlet />
       </main>
-    </Stack>
+    </>
   );
 }
 

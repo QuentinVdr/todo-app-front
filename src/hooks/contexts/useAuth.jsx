@@ -26,11 +26,6 @@ export default function AuthProvider({ children }) {
   const isAuthenticated = () => !!user;
 
   /**
-   * Check if the user is a botaniste
-   */
-  const isBotanist = () => user.isBotanist;
-
-  /**
    * Get the current session
    */
   const login = (user) => {
@@ -44,9 +39,7 @@ export default function AuthProvider({ children }) {
     handleUserChange(null);
   };
 
-  return (
-    <AuthContext.Provider value={{ isAuthenticated, user, isBotanist, login, logout }}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>{children}</AuthContext.Provider>;
 }
 
 /** A custom hook that provides access to the authentication context. */
