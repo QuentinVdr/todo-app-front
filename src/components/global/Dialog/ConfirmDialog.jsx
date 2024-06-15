@@ -1,14 +1,13 @@
-import { useConfirmDialog } from '@hooks/contexts/ConfirmDialogContext';
+import { useConfirmDialog } from '@hooks/contexts/useConfirmDialog';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 
 /** Define component props */
 ConfirmDialog.propTypes = {
-  titleKey: PropTypes.string.isRequired,
-  descriptionKey: PropTypes.string.isRequired,
-  agreeMessageKey: PropTypes.string.isRequired,
-  disagreeMessageKey: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  agreeMessage: PropTypes.string.isRequired,
+  disagreeMessage: PropTypes.string.isRequired,
   onAccept: PropTypes.func.isRequired,
   onRefuse: PropTypes.func.isRequired
 };
@@ -18,15 +17,7 @@ ConfirmDialog.propTypes = {
  * To be used with confirm dialog context {@link ConfirmDialogContext}
  * @returns A simple dialog with a title, description and two buttons
  */
-export default function ConfirmDialog({
-  titleKey,
-  descriptionKey,
-  agreeMessageKey,
-  disagreeMessageKey,
-  onAccept,
-  onRefuse
-}) {
-  const { t } = useTranslation();
+export default function ConfirmDialog({ title, description, agreeMessage, disagreeMessage, onAccept, onRefuse }) {
   const { open } = useConfirmDialog();
 
   return (
@@ -38,18 +29,18 @@ export default function ConfirmDialog({
         }
       }}
     >
-      <DialogTitle>{t(titleKey)}</DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
 
       <DialogContent>
-        <DialogContentText>{t(descriptionKey)}</DialogContentText>
+        <DialogContentText>{description}</DialogContentText>
       </DialogContent>
 
       <DialogActions>
         {/* Closes the dialog without any change */}
-        <Button onClick={onRefuse}>{t(disagreeMessageKey)}</Button>
+        <Button onClick={onRefuse}>{disagreeMessage}</Button>
 
         {/* Closes the dialog and continues */}
-        <Button onClick={onAccept}>{t(agreeMessageKey)}</Button>
+        <Button onClick={onAccept}>{agreeMessage}</Button>
       </DialogActions>
     </Dialog>
   );

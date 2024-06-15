@@ -1,4 +1,4 @@
-import { useAuth } from '@contexts/useAuth';
+import { useAuth } from '@hooks/contexts/useAuth';
 import { AccountCircle } from '@mui/icons-material';
 import { AppBar, IconButton, Menu, MenuItem, Stack, Typography } from '@mui/material';
 import { useSnackbarStore } from '@stores/SnackbarStore';
@@ -11,6 +11,7 @@ export default function Navbar() {
   const { isAuthenticated, logout } = useAuth();
   const { showInfo } = useSnackbarStore();
   const [anchorEl, setAnchorEl] = useState(null);
+  const isAnchorElOpen = Boolean(anchorEl);
 
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -49,9 +50,9 @@ export default function Navbar() {
           >
             <AccountCircle />
           </IconButton>
-          <Menu id="menu-appbar" anchorEl={anchorEl} open={anchorEl} onClose={handleCloseMenu}>
+          <Menu id="menu-appbar" anchorEl={anchorEl} open={isAnchorElOpen} onClose={handleCloseMenu}>
             {isAuthenticated() ? (
-              <MenuItem onClick={handleLogout}>déconnecter</MenuItem>
+              <MenuItem onClick={handleLogout}>se déconnecter</MenuItem>
             ) : (
               <MenuItem onClick={handleLogin}>se connecter</MenuItem>
             )}

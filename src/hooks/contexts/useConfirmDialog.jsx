@@ -4,7 +4,7 @@ import { createContext, useContext, useState } from 'react';
 
 /** Define component props */
 ConfirmDialogProvider.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired
 };
 
 /**
@@ -60,10 +60,10 @@ export function ConfirmDialogProvider({ children }) {
       {children}
       {open && dialogOptions && (
         <ConfirmDialog
-          titleKey={dialogOptions.titleKey}
-          descriptionKey={dialogOptions.descriptionKey}
-          agreeMessageKey={dialogOptions.agreeMessageKey}
-          disagreeMessageKey={dialogOptions.disagreeMessageKey}
+          title={dialogOptions.title}
+          description={dialogOptions.description}
+          agreeMessage={dialogOptions.agreeMessage}
+          disagreeMessage={dialogOptions.disagreeMessage}
           onAccept={onAccept}
           onRefuse={onRefuse}
         />

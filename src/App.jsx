@@ -1,7 +1,8 @@
 import { AlertSnackbar } from '@components/global/AlertSnackbar/AlertSnackbar';
 import { ReactQueryProvider } from '@contexts/ReactQueryProvider';
-import AuthProvider from '@contexts/useAuth';
 import { ThemeProvider } from '@emotion/react';
+import AuthProvider from '@hooks/contexts/useAuth';
+import { ConfirmDialogProvider } from '@hooks/contexts/useConfirmDialog';
 import { CssBaseline } from '@mui/material';
 import { AppRouter } from '@routes/AppRoutes';
 import { theme } from '@styles/theme';
@@ -27,7 +28,9 @@ const AppProviders = ({ children }) => {
     <ThemeProvider theme={theme}>
       <CssBaseline>
         <ReactQueryProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <ConfirmDialogProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </ConfirmDialogProvider>
         </ReactQueryProvider>
       </CssBaseline>
     </ThemeProvider>
@@ -35,5 +38,5 @@ const AppProviders = ({ children }) => {
 };
 
 AppProviders.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired
 };
