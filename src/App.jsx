@@ -1,7 +1,7 @@
 import { AlertSnackbar } from '@components/global/AlertSnackbar/AlertSnackbar';
 import { ReactQueryProvider } from '@contexts/ReactQueryProvider';
+import AuthProvider from '@contexts/useAuth';
 import { ThemeProvider } from '@emotion/react';
-import AuthProvider from '@hooks/contexts/useAuth';
 import { CssBaseline } from '@mui/material';
 import { AppRouter } from '@routes/AppRoutes';
 import { theme } from '@styles/theme';

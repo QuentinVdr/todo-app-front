@@ -1,4 +1,4 @@
-import { useAuth } from '@hooks/contexts/useAuth';
+import { useAuth } from '@contexts/useAuth';
 import { AccountCircle } from '@mui/icons-material';
 import { AppBar, IconButton, Menu, MenuItem, Stack, Typography } from '@mui/material';
 import { useSnackbarStore } from '@stores/SnackbarStore';

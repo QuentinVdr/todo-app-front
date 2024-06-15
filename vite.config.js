@@ -16,7 +16,6 @@ export default defineConfig({
       '@routes': '/src/routes',
       '@stores': '/src/stores',
       '@styles': '/src/styles',
-      '@translations': '/src/translations',
       '@utils': '/src/utils'
     }
   }

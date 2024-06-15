@@ -30,7 +30,9 @@ export const useDeleteCandidateMutation = () => {
   return useMutation({
     mutationFn: (id) => deleteExempleById(id),
     onSuccess: (_, id) => {
-      queryClient.removeQueries(exempleQKey.detail(id));
+      queryClient.setQueryData(exempleQKey.list(), (oldData) => {
+        return oldData.filter((tag) => tag.id !== id);
+      });
     }
   });
 };

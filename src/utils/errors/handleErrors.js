@@ -1,5 +1,4 @@
 import { useSnackbarStore } from '@stores/SnackbarStore';
-import i18n from '@translations/i18n';
 
 /**
  * Method used to handle HTTP error
@@ -10,16 +9,13 @@ import i18n from '@translations/i18n';
 const handleErrors = (error) => {
   const { showError } = useSnackbarStore.getState();
   if (!error.response) {
-    showError({ message: i18n.t('error.alert.NO_RESPONSE'), duration: 'normal' });
+    showError({ message: 'Aucune réponse du serveur', duration: 'normal' });
   } else if (error.response.status === 401) {
-    showError({ message: i18n.t('error.alert.UNAUTHORIZED'), duration: 'normal' });
+    showError({ message: 'Vous n’êtes pas connecter', duration: 'normal' });
   } else if (error.response.status === 403) {
-    showError({ message: i18n.t('error.alert.FORBIDDEN'), duration: 'normal' });
+    showError({ message: 'Vous n’êtes pas autorisé', duration: 'normal' });
   } else if (error.response.data) {
-    const { title: errorTitle } = error.response.data;
-
-    // Show a specific message if exists in traduction file, else generic one
-    const message = i18n.t([`error.alert.${errorTitle}`, 'error.alert.UNSPECIFIED']);
+    const message = 'Veuillez contacter un administrateur';
     showError({ message, duration: 'normal' });
   } else {
     console.error(error);

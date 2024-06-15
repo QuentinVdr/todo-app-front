@@ -1,4 +1,4 @@
-import { findExempleById, getAllExemple } from '@api/ExempleAPI';
+import { findExempleById, getAllExemple } from '@api/ExempleApi';
 import { exempleQKey } from '@stores/ReactQueryKEYS';
 import { useQuery } from '@tanstack/react-query';
 

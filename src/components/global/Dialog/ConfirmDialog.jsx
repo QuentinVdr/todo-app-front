@@ -1,7 +1,6 @@
-import { ConfirmDialogContext } from '@contexts/ConfirmDialogContext';
+import { useConfirmDialog } from '@hooks/contexts/ConfirmDialogContext';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /** Define component props */
@@ -28,7 +27,8 @@ export default function ConfirmDialog({
   onRefuse
 }) {
   const { t } = useTranslation();
-  const { open } = useContext(ConfirmDialogContext);
+  const { open } = useConfirmDialog();
+
   return (
     <Dialog
       open={open}
