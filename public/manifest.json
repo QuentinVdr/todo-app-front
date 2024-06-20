@@ -1,6 +1,6 @@
 {
-  "short_name": "my-app",
-  "name": "my-app",
+  "short_name": "Todo-app",
+  "name": "Todo-app",
   "icons": [
     {
       "src": "/vite.svg",
