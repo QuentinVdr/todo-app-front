@@ -9,7 +9,7 @@ import { useTaskQuery } from '@hooks/reactQuery/queries/useTaskQueries';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { CircularProgress, Grid, IconButton, Modal, Stack, Typography } from '@mui/material';
+import { Chip, CircularProgress, Grid, IconButton, Modal, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import styles from './Home.module.scss';
 
@@ -80,22 +80,22 @@ export default function Home() {
                   <Typography variant="h2">{task.title}</Typography>
                   <Typography variant="body1">{task.description}</Typography>
                 </Stack>
-                {task.tags.length > 0 && (
-                  <Stack>
-                    {task.tags.map((taskTag) => (
-                      <Typography key={taskTag} variant="body2">
-                        {findTagNameById(taskTag)}
-                      </Typography>
-                    ))}
+                <Stack direction="row" gap={2}>
+                  {task.tags.length > 0 && (
+                    <Stack justifyContent="center" gap={1}>
+                      {task.tags.map((taskTag) => (
+                        <Chip key={taskTag} label={findTagNameById(taskTag)} />
+                      ))}
+                    </Stack>
+                  )}
+                  <Stack alignContent="center">
+                    <IconButton onClick={() => handleUpdate(task)}>
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton onClick={() => handleTaskDelete(task._id)}>
+                      <DeleteIcon />
+                    </IconButton>
                   </Stack>
-                )}
-                <Stack direction="row">
-                  <IconButton onClick={() => handleUpdate(task)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton onClick={() => handleTaskDelete(task._id)}>
-                    <DeleteIcon />
-                  </IconButton>
                 </Stack>
               </Grid>
             ))}
