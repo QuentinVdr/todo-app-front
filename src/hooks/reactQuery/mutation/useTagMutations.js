@@ -8,7 +8,7 @@ export const useCreateTagMutation = () => {
   return useMutation({
     mutationFn: (tag) => createTag(tag),
     onSuccess: (savedTag) => {
-      queryClient.setQueryData(tagQKey.detail(savedTag.id), savedTag);
+      queryClient.setQueryData(tagQKey.detail(savedTag._id), savedTag);
     }
   });
 };

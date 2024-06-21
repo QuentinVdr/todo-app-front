@@ -1,8 +1,9 @@
 import { TaskForm } from '@components/task/TaskFrom/TaskForm';
-import { useCreateTaskMutation } from '@hooks/reactQuery/mutation/useTaskMutations';
+import { useCreateTaskMutation, useDeleteTaskMutation } from '@hooks/reactQuery/mutation/useTaskMutations';
 import { useTagQuery } from '@hooks/reactQuery/queries/useTagQueries';
 import { useTaskQuery } from '@hooks/reactQuery/queries/useTaskQueries';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { CircularProgress, Grid, IconButton, Modal, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import styles from './Home.module.scss';
@@ -14,6 +15,7 @@ export default function Home() {
   const { data: tags } = useTagQuery();
   const { data: tasks, isLoading: isTasksLoading, refetch: refetchTasks } = useTaskQuery();
   const { mutateAsync: createTask } = useCreateTaskMutation();
+  const { mutateAsync: deleteTask } = useDeleteTaskMutation();
 
   const [open, setOpen] = useState(false);
 
@@ -21,14 +23,16 @@ export default function Home() {
   const handleClose = () => setOpen(false);
 
   const onFormSubmit = (data) => {
-    console.log(data);
-    createTask(data);
-    refetchTasks();
+    createTask(data).then(() => refetchTasks());
     handleClose();
   };
 
   const findTagNameById = (id) => {
     return tags.find((tag) => tag._id === id)?.name;
+  };
+
+  const handleTaskDelete = (id) => {
+    deleteTask(id);
   };
 
   return (
@@ -45,7 +49,7 @@ export default function Home() {
             Chargement <CircularProgress />
           </Typography>
         ) : (
-          <Grid item container rowGap={4} columnSpacing={4}>
+          <Grid item container rowGap={4}>
             {tasks.map((task) => (
               <Grid
                 item
@@ -69,6 +73,9 @@ export default function Home() {
                     ))}
                   </Stack>
                 )}
+                <IconButton onClick={() => handleTaskDelete(task._id)}>
+                  <DeleteIcon />
+                </IconButton>
               </Grid>
             ))}
           </Grid>

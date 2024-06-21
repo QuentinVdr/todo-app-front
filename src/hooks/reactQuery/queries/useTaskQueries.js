@@ -12,6 +12,6 @@ export const useTaskByIdQuery = (id, options) =>
 export const useTaskQuery = (options) =>
   useQuery({
     ...options,
-    queryKey: taskQKey.mainKey,
+    queryKey: [taskQKey.mainKey],
     queryFn: () => getTasks()
   });

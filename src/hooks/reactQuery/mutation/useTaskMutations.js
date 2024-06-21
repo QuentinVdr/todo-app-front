@@ -8,7 +8,7 @@ export const useCreateTaskMutation = () => {
   return useMutation({
     mutationFn: (task) => createTask(task),
     onSuccess: (savedTask) => {
-      queryClient.setQueryData(taskQKey.detail(savedTask.id), savedTask);
+      queryClient.setQueryData(taskQKey.detail(savedTask._id), savedTask);
     }
   });
 };
