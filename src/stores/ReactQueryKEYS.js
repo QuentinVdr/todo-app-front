@@ -5,20 +5,17 @@
 /** Exemple */
 export const exempleQKey = {
   mainKey: 'exemple',
-  list: () => [exempleQKey.mainKey, 'list'],
-  detail: (id) => [exempleQKey.mainKey, 'detail', id]
+  detail: (id) => [exempleQKey.mainKey, id, 'detail']
 };
 
 /** Task */
 export const taskQKey = {
   mainKey: 'task',
-  list: () => [taskQKey.mainKey, 'list'],
-  detail: (id) => [taskQKey.mainKey, 'detail', id]
+  detail: (id) => [taskQKey.mainKey, id, 'detail']
 };
 
 /** Tag */
 export const tagQKey = {
   mainKey: 'tag',
-  list: () => [tagQKey.mainKey, 'list'],
-  detail: (id) => [tagQKey.mainKey, 'detail', id]
+  detail: (id) => [tagQKey.mainKey, id, 'detail']
 };

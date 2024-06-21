@@ -1,4 +1,4 @@
-import { createExemple, deleteExempleById, updateExemple } from '@api/ExempleAPI';
+import { createExemple, deleteByIdExemple, updateExemple } from '@api/ExempleApi';
 import { exempleQKey } from '@stores/ReactQueryKEYS';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -28,11 +28,9 @@ export const useDeleteCandidateMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id) => deleteExempleById(id),
+    mutationFn: (id) => deleteByIdExemple(id),
     onSuccess: (_, id) => {
-      queryClient.setQueryData(exempleQKey.list(), (oldData) => {
-        return oldData.filter((tag) => tag.id !== id);
-      });
+      queryClient.removeQueries([exempleQKey.mainKey, id]);
     }
   });
 };

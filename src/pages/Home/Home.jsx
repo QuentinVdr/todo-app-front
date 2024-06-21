@@ -1,4 +1,5 @@
 import { TaskForm } from '@components/task/TaskFrom/TaskForm';
+import { useCreateTaskMutation } from '@hooks/reactQuery/mutation/useTaskMutations';
 import { useTagQuery } from '@hooks/reactQuery/queries/useTagQueries';
 import { useTaskQuery } from '@hooks/reactQuery/queries/useTaskQueries';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -11,7 +12,8 @@ import styles from './Home.module.scss';
  */
 export default function Home() {
   const { data: tags } = useTagQuery();
-  const { data: tasks, isLoading: isTasksLoading } = useTaskQuery();
+  const { data: tasks, isLoading: isTasksLoading, refetch: refetchTasks } = useTaskQuery();
+  const { mutateAsync: createTask } = useCreateTaskMutation();
 
   const [open, setOpen] = useState(false);
 
@@ -20,6 +22,8 @@ export default function Home() {
 
   const onFormSubmit = (data) => {
     console.log(data);
+    createTask(data);
+    refetchTasks();
     handleClose();
   };
 

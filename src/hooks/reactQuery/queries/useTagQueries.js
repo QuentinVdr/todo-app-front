@@ -12,6 +12,6 @@ export const useTagByIdQuery = (id, options) =>
 export const useTagQuery = (options) =>
   useQuery({
     ...options,
-    queryKey: tagQKey,
+    queryKey: tagQKey.mainKey,
     queryFn: () => getTags()
   });

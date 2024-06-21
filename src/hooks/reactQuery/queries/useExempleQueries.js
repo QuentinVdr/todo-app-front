@@ -13,7 +13,7 @@ export const useExempleByIdQuery = (id, options) => {
 export const useExempleQuery = (options) => {
   useQuery({
     ...options,
-    queryKey: exempleQKey,
+    queryKey: exempleQKey.mainKey,
     queryFn: () => getAllExemple()
   });
 };

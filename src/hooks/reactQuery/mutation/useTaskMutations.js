@@ -30,9 +30,7 @@ export const useDeleteTaskMutation = () => {
   return useMutation({
     mutationFn: (id) => deleteTaskById(id),
     onSuccess: (_, id) => {
-      queryClient.setQueryData(taskQKey.list(), (oldData) => {
-        return oldData.filter((tag) => tag.id !== id);
-      });
+      queryClient.removeQueries([taskQKey.mainKey, id]);
     }
   });
 };

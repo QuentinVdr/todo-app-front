@@ -30,9 +30,7 @@ export const useDeleteTagMutation = () => {
   return useMutation({
     mutationFn: (id) => deleteTagById(id),
     onSuccess: (_, id) => {
-      queryClient.setQueryData(tagQKey.list(), (oldData) => {
-        return oldData.filter((tag) => tag.id !== id);
-      });
+      queryClient.removeQueries([tagQKey.mainKey, id]);
     }
   });
 };
