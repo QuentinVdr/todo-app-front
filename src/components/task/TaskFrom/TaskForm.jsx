@@ -52,7 +52,7 @@ export const TaskForm = ({
             annuler
           </Button>
           <Button variant="contained" type="submit">
-            créer
+            {defaultValue ? 'modifier' : 'créer'}
           </Button>
         </Grid>
       </Grid>

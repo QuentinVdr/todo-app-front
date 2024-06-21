@@ -13,13 +13,13 @@ export const useCreateTaskMutation = () => {
   });
 };
 
-export const useUpdateTaskMutation = (taskId) => {
+export const useUpdateTaskMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (updatedTask) => updateTask(taskId, updatedTask),
+    mutationFn: (updatedTask) => updateTask(updatedTask._id, updatedTask),
     onSuccess: (savedTask) => {
-      queryClient.setQueryData(taskQKey.detail(taskId), savedTask);
+      queryClient.setQueryData(taskQKey.detail(savedTask._id), savedTask);
     }
   });
 };

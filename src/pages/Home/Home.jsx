@@ -1,9 +1,14 @@
 import { TaskForm } from '@components/task/TaskFrom/TaskForm';
-import { useCreateTaskMutation, useDeleteTaskMutation } from '@hooks/reactQuery/mutation/useTaskMutations';
+import {
+  useCreateTaskMutation,
+  useDeleteTaskMutation,
+  useUpdateTaskMutation
+} from '@hooks/reactQuery/mutation/useTaskMutations';
 import { useTagQuery } from '@hooks/reactQuery/queries/useTagQueries';
 import { useTaskQuery } from '@hooks/reactQuery/queries/useTaskQueries';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { CircularProgress, Grid, IconButton, Modal, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import styles from './Home.module.scss';
@@ -15,15 +20,26 @@ export default function Home() {
   const { data: tags } = useTagQuery();
   const { data: tasks, isLoading: isTasksLoading, refetch: refetchTasks } = useTaskQuery();
   const { mutateAsync: createTask } = useCreateTaskMutation();
+  const { mutateAsync: updateTask } = useUpdateTaskMutation();
   const { mutateAsync: deleteTask } = useDeleteTaskMutation();
 
   const [open, setOpen] = useState(false);
+  const [defaultValue, setDefaultValue] = useState(null);
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleUpdate = (task) => {
+    setDefaultValue(task);
+    handleOpen();
+  };
+  const handleClose = () => {
+    setDefaultValue(null);
+    setOpen(false);
+  };
 
   const onFormSubmit = (data) => {
-    createTask(data).then(() => refetchTasks());
+    defaultValue
+      ? updateTask({ ...defaultValue, ...data }).then(() => refetchTasks())
+      : createTask(data).then(() => refetchTasks());
     handleClose();
   };
 
@@ -73,9 +89,14 @@ export default function Home() {
                     ))}
                   </Stack>
                 )}
-                <IconButton onClick={() => handleTaskDelete(task._id)}>
-                  <DeleteIcon />
-                </IconButton>
+                <Stack direction="row">
+                  <IconButton onClick={() => handleUpdate(task)}>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleTaskDelete(task._id)}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Stack>
               </Grid>
             ))}
           </Grid>
@@ -84,7 +105,7 @@ export default function Home() {
       <Modal open={open} onClose={handleClose}>
         <Grid container direction="column" rowGap={4} className={styles.modalBox}>
           <Typography variant="h2">Créer une tache</Typography>
-          <TaskForm onSubmit={onFormSubmit} onCancel={() => handleClose()} />
+          <TaskForm onSubmit={onFormSubmit} onCancel={() => handleClose()} defaultValue={defaultValue} />
         </Grid>
       </Modal>
     </>
